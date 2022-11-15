@@ -22,7 +22,7 @@ class TripsController extends AbstractController
         ]);
     }
 
-    //affichage sorties
+    //affichage sortie
     /**
      * @Route("/details/{id}", name="details")
      */
