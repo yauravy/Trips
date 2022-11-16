@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trip;
+use App\Form\TripType;
 use App\Repository\TripRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,8 +46,11 @@ class TripsController extends AbstractController
      */
     public function create(): Response
     {
+        //we associate the formType to trip entity
+        $trip = new Trip();
+        $tripForm = $this->createForm(TripType::class, $trip);
         return $this->render('trips/create.html.twig', [
-            'controller_name' => 'TripsController',
+            'tripForm' => $tripForm->createView(),
         ]);
     }
 
