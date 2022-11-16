@@ -3,7 +3,35 @@
 {% block title %}List Trips | {{ parent() }}{% endblock %}
 
 {% block body %}
-
+    <h2>Les Sorties</h2>
+    <table class="table table-striped table-sm ">
+        <thead>
+        <tr>
+            <th scope="col">Nom Sortie</th>
+            <th scope="col">Date Trip</th>
+            <th scope="col">Cloture</th>
+            <th scope="col">Places</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Inscrit</th>
+            <th scope="col">Organisateur</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for trip in trips %}
+            <td><a id="tr-nome" class="text-decoration-none text-dark " href="{{ path('trips_details', {'id' : trip.id}) }}" title="voir les details">{{ trip.nom }}</a></td>
+            <td>{{ trip.dateDebut|date('Y-m-d H:i:s') }}</td>
+            <td>{{ trip.dateLimiteInscription|date('Y-m-d H:i:s') }}</td>
+            <td>{{ trip.maxInscriptions }}</td>
+            <td>{{ trip.etat }}</td>
+            <td>Oui</td>
+            <td>Youssef</td>
+            <td>M'inscrire</td>
+        </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 
 
