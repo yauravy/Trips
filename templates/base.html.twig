@@ -34,6 +34,16 @@
             <li class="nav-item"><a href="" class="nav-link">Se déconnecter</a></li>
         </ul>
     </header>
+
+        {# read and display all flash messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
     <main>
         {% block body %}{% endblock %}
     </main>
@@ -51,3 +61,5 @@
     </div>
 </body>
 </html>
+
+

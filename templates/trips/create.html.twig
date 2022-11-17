@@ -5,16 +5,20 @@
 {% block body %}
     <h2>Créer une sortie !</h2>
 
+    <div class="card border-primary mb-3">
+        <div class="card-body">
             {{ form_start(tripForm) }}
             {{ form_row(tripForm.nom) }}
-            {{ form_row(tripForm.infosSortie) }}
-            {{ form_row(tripForm.dateDebut) }}
             {{ form_row(tripForm.duree) }}
+            {{ form_row(tripForm.dateDebut) }}
             {{ form_row(tripForm.dateLimiteInscription) }}
             {{ form_row(tripForm.maxInscriptions) }}
+            {{ form_row(tripForm.infosSortie) }}
 
-    <button class="btn btn-primary mt-3">Let's go</button>
-    {{ form_end(tripForm) }}
+            <button class="btn btn-primary mt-3">Let's go</button>
+            {{ form_end(tripForm) }}
+        </div>
+    </div>
 
 {% endblock %}
 

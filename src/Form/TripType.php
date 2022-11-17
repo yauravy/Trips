@@ -17,16 +17,20 @@ class TripType extends AbstractType
             ->add('nom', TextType::class, [ 'label' => 'Nom Sortie'])
             ->add('dateDebut', null, [
                 'label' => 'Debut le',
+                'html5'=> true,
+                'widget'=>'single_text',
+                //'attr' => ['class' => 'datetimepicker'],
+                //'format' => 'dd/MM/yyyy HH:mm'
 
             ])
             ->add('duree', IntegerType::class, ['label' => "Duree en heures"])
             ->add('dateLimiteInscription', null, [
-                'label' => "Date limite pour l'inscription",
-                'html5'=> false,
+                'label' => "Date limite inscription",
+                'html5'=> true,
                 'widget'=>'single_text',
             ])
             ->add('maxInscriptions', IntegerType::class, ['label' => 'Nombre max partecipants'])
-            ->add('infosSortie', null,[
+            ->add('infosSortie', TextType::class,[
                 'required' => false,
             ])
             //->add('etat')
