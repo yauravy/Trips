@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TripRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -62,6 +64,34 @@ class Trip
      * @ORM\Column(type="string", length=600, nullable=false)
      */
     private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Participants::class, inversedBy="listOrganisateurs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organisateur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="trips")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $campus;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="trip")
+     */
+    private $inscriptions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="listTrips")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lieu;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,6 +177,72 @@ class Trip
     public function setEtat(string $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?Participants
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?Participants $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setTrip($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getTrip() === $this) {
+                $inscription->setTrip(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }
