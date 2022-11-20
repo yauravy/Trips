@@ -37,6 +37,8 @@ class TripsController extends AbstractController
     public function details(int $id, TripRepository $tripRepository): Response
     {
         $trip = $tripRepository->find($id);
+
+        $trip->getInscriptions();
         return $this->render('trips/details.html.twig', [
             "trip" => $trip
         ]);

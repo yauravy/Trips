@@ -65,28 +65,16 @@ class Trip
      */
     private $etat;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Participants::class, inversedBy="listOrganisateurs")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $organisateur;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="trips")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $campus;
+
+
 
     /**
      * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="trip")
      */
     private $inscriptions;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="listTrips")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $lieu;
+
 
     public function __construct()
     {
@@ -181,29 +169,6 @@ class Trip
         return $this;
     }
 
-    public function getOrganisateur(): ?Participants
-    {
-        return $this->organisateur;
-    }
-
-    public function setOrganisateur(?Participants $organisateur): self
-    {
-        $this->organisateur = $organisateur;
-
-        return $this;
-    }
-
-    public function getCampus(): ?Campus
-    {
-        return $this->campus;
-    }
-
-    public function setCampus(?Campus $campus): self
-    {
-        $this->campus = $campus;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Inscription>

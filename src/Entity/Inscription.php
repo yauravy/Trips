@@ -22,11 +22,6 @@ class Inscription
      */
     private $DateInscription;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Participants::class, inversedBy="inscription")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $participants;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trip::class, inversedBy="inscriptions")
@@ -51,17 +46,7 @@ class Inscription
         return $this;
     }
 
-    public function getParticipants(): ?Participants
-    {
-        return $this->participants;
-    }
 
-    public function setParticipants(?Participants $participants): self
-    {
-        $this->participants = $participants;
-
-        return $this;
-    }
 
     public function getTrip(): ?Trip
     {
