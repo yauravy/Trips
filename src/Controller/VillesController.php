@@ -11,10 +11,9 @@ class VillesController extends AbstractController
     /**
      * @Route("/villes", name="app_villes")
      */
-    public function index(): Response
+    public function villes(): Response
     {
-        return $this->render('villes/index.html.twig', [
-            'controller_name' => 'VillesController',
+        return $this->render('villes/villes.html.twig', [
         ]);
     }
 }

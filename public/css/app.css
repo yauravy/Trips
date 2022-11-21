@@ -5,7 +5,7 @@ label {
 }
 input, label {
     box-sizing: border-box;
-    max-width: 50%;
+    max-width: 100%;
     width: 200px;
 }
 
