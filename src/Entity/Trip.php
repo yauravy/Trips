@@ -74,6 +74,18 @@ class Trip
      */
     private $inscriptions;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tripscreated")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $creator;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="trips")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $lieu;
+
 
 
     public function __construct()
@@ -208,6 +220,18 @@ class Trip
     public function setLieu(?Lieu $lieu): self
     {
         $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): self
+    {
+        $this->creator = $creator;
 
         return $this;
     }

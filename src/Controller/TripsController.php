@@ -61,6 +61,8 @@ class TripsController extends AbstractController
         if($tripForm->isSubmitted() && $tripForm->isValid()){
             //$trip->setDateDebut(new \DateTime());
             $trip->setEtat('cancelled');
+
+            $trip->setCreator($this->getUser());
             $entityManager->persist($trip);
             $entityManager->flush();
 

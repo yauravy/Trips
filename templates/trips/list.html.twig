@@ -26,7 +26,9 @@
             <td>{{ trip.maxInscriptions }}</td>
             <td>{{ trip.etat }}</td>
             <td>Oui</td>
-            <td>Youssef</td>
+            <td>
+                <a href="{{ path('profil_user', {'id': trip.creator.id}) }}" title="voir profil">{{ trip.creator.id~ " " ~trip.creator.prenom }} {{ trip.creator.campus }}</a>
+            </td>
             <td>M'inscrire</td>
         </tr>
             {% endfor %}

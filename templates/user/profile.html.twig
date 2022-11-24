@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.nom }} {{ user.prenom }}{% endblock %}
+
+{% block body %}
+    <h2>user {{ user.nom }} {{ user.prenom }}</h2>
+    <h2>Campus : {{ user.campus.nom }}</h2>
+    <div>
+        {% if user.photo %}
+        <img src="{{ asset('img/profile/'~user.picture) }}" alt="{{ user.nom }} {{ user.prenom }}">
+        {% else %}
+        <img src="{{ asset('img/profile-default.jpg') }}" alt="photo defaut">
+        {% endif %}
+    </div>
+
+    {% if app.user == user %}
+        <a href="{{ path('user_edit') }}">Modifier profil</a><br>
+        <a href="{{ path('user_upload') }}">Modifier image</a><br>
+        <a href="{{ path('user_edit_password') }}">Modifier mot de passe</a>
+    {% endif %}
+{% endblock %}

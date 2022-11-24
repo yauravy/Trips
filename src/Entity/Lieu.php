@@ -50,9 +50,15 @@ class Lieu
      */
     private $listTrips;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="lieu")
+     */
+    private $trips;
+
     public function __construct()
     {
         $this->listTrips = new ArrayCollection();
+        $this->trips = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +150,36 @@ class Lieu
             // set the owning side to null (unless already changed)
             if ($listTrip->getLieu() === $this) {
                 $listTrip->setLieu(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Trip>
+     */
+    public function getTrips(): Collection
+    {
+        return $this->trips;
+    }
+
+    public function addTrip(Trip $trip): self
+    {
+        if (!$this->trips->contains($trip)) {
+            $this->trips[] = $trip;
+            $trip->setLieu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrip(Trip $trip): self
+    {
+        if ($this->trips->removeElement($trip)) {
+            // set the owning side to null (unless already changed)
+            if ($trip->getLieu() === $this) {
+                $trip->setLieu(null);
             }
         }
 

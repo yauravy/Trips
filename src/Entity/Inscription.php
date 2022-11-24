@@ -29,6 +29,11 @@ class Inscription
      */
     private $trip;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="inscriptions")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -56,6 +61,18 @@ class Inscription
     public function setTrip(?Trip $trip): self
     {
         $this->trip = $trip;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

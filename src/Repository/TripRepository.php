@@ -39,14 +39,18 @@ class TripRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByEtat()
+    public function findJoin(int $id)
     {
-        $queryBuilder = $this->createQueryBuilder('t');
-        $queryBuilder->andWhere('t.etat LIKE cancelled');
+        $bd = $this->createQueryBuilder('t');
+        $bd->andWhere('t.id = :id')->setParameter(':id', $id)
+            ->leftJoin('t.etat', 'e')->addSelect('e')
+            ->leftJoin('t.creator', 'c')->addSelect('c')
+            ->leftJoin('t.inscriptions', 'i')->addSelect('i')
+            ->leftJoin('i.user', 'iuser')->addSelect('iuser')
+            ->leftJoin('t.lieu', 'lieu')->addSelect('lieu');
 
-        $query = $queryBuilder->getQuery();
-        $results = $query->getResult();
-        return $results;
+        return $bd->getQuery()->getOneOrNullResult();
+
     }
 
 }

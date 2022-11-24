@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -72,6 +74,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=50)
      */
     private $pseudo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="users")
+     *
+     */
+    private $campus;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="user")
+     */
+    private $inscriptions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="creator")
+     */
+    private $tripscreated;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+        $this->tripscreated = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -243,4 +269,77 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getUser() === $this) {
+                $inscription->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Trip>
+     */
+    public function getTripscreated(): Collection
+    {
+        return $this->tripscreated;
+    }
+
+    public function addTripscreated(Trip $tripscreated): self
+    {
+        if (!$this->tripscreated->contains($tripscreated)) {
+            $this->tripscreated[] = $tripscreated;
+            $tripscreated->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTripscreated(Trip $tripscreated): self
+    {
+        if ($this->tripscreated->removeElement($tripscreated)) {
+            // set the owning side to null (unless already changed)
+            if ($tripscreated->getCreator() === $this) {
+                $tripscreated->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
