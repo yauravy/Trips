@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Edit Villes | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Edit Villes</h1>
+        {{ form_start(form) }}
+
+        {{ form_errors(form) }}
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+

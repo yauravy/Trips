@@ -13,7 +13,7 @@
         <li class="nav-item"><a href="{{ path('trips_create') }}" class="nav-link">Créer une sortie</a></li>
 
         {% if is_granted("ROLE_ADMIN") %}
-        <li class="nav-item"><a href="{{ path('app_villes') }}" class="nav-link">Villes</a></li>
+        <li class="nav-item"><a href="{{ path('villes') }}" class="nav-link">Villes</a></li>
         <li class="nav-item"><a href="{{ path('campus_list') }}" class="nav-link">Campus</a></li>
         {% endif %}
     </ul>

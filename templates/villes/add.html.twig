@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Add Villes | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Add Villes</h1>
+        {{ form_start(form) }}
+
+        {{ form_errors(form) }}
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+
+
