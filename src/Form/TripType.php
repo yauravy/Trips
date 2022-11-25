@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Campus;
+use App\Entity\Lieu;
+use App\Entity\Location;
 use App\Entity\Trip;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -34,6 +36,11 @@ class TripType extends AbstractType
             ->add('maxInscriptions', IntegerType::class, ['label' => 'Nombre max partecipants'])
             ->add('infosSortie', TextType::class,[
                 'required' => false,
+            ])
+            ->add('lieu', EntityType::class, [
+                'label' => 'Lieu',
+                'class' => Lieu::class,
+                'choice_label' => 'nom',
             ])
 
             ->add('campus', EntityType::class, [

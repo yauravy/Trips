@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Trip;
+use App\Form\FilterType;
+use App\Form\FiltreType;
 use App\Form\TripType;
 use App\Repository\TripRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,6 +25,7 @@ class TripsController extends AbstractController
      */
     public function list(TripRepository $tripRepository): Response
     {
+        $form = $this->createForm(FiltreType::class, null);
         $trips = $tripRepository->findAll();
 
         return $this->render('trips/list.html.twig', [
@@ -40,7 +43,8 @@ class TripsController extends AbstractController
 
         $trip->getInscriptions();
         return $this->render('trips/details.html.twig', [
-            "trip" => $trip
+            "trip" => $trip,
+
         ]);
     }
 
