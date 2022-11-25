@@ -5,9 +5,9 @@
 {% block body %}
     <h2>user: {{ user.nom }} {{ user.prenom }}</h2>
     <h2>Campus : {{ user.campus.nom }}</h2>
-    <div>
+    <div class="d-block">
         {% if user.photo %}
-        <img src="{{ asset('img/profile/'~user.picture) }}" alt="{{ user.nom }} {{ user.prenom }}">
+        <img src="{{ asset('uploads/user/'~user.photo) }}" alt="{{ user.nom }} {{ user.prenom }}">
         {% else %}
         <img src="{{ asset('img/profile/profil.jpeg') }}" alt="photo defaut">
         {% endif %}
