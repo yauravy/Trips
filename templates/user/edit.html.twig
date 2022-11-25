@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Modifier profil
+{% endblock %}
+
+{% block body %}
+    <h2>Modifier profil</h2>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div>
+                {% if app.user.photo %}
+                    <img src="{{ asset('img/profiles/'~app.user.photo) }}" alt="{{ app.user.nom }} {{ app.user.prenom }}">
+                {% else %}
+                    <img src="{{ asset('img/profile/profil.jpeg') }}" alt="Photo par défaut">
+                {% endif %}
+
+        </div>
+        <div class="col-sm-8">
+            {{ form(formSave) }}
+        </div>
+    </div>
+{% endblock %}
+
+

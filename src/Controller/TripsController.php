@@ -26,7 +26,7 @@ class TripsController extends AbstractController
         $trips = $tripRepository->findAll();
 
         return $this->render('trips/list.html.twig', [
-            "trips" => $trips
+            "trips" => $trips,
         ]);
     }
 
@@ -60,7 +60,9 @@ class TripsController extends AbstractController
 
         if($tripForm->isSubmitted() && $tripForm->isValid()){
             //$trip->setDateDebut(new \DateTime());
-            $trip->setEtat('cancelled');
+
+                $trip->setEtat("En creation");
+
 
             $trip->setCreator($this->getUser());
             $entityManager->persist($trip);
@@ -75,28 +77,4 @@ class TripsController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/demo", name="em-demo")
-     */
-    public function demo(EntityManagerInterface $entityManager): Response
-    {
-        //cree un instance de mon entite
-        $trip = new Trip();
-
-        //hydrate toutes les proprietes
-        $trip->setNom('festival');
-        $trip->setDateDebut(new \DateTime());
-        $trip->setDuree(10);
-        $trip->setMaxInscriptions(10);
-        $trip->setDateLimiteInscription(new \DateTime());
-        $trip->setEtat('Ec cours');
-        $trip->setInfosSortie('tous au festival');
-
-        dump($trip);
-
-        $entityManager->persist($trip);
-        $entityManager->flush();
-
-        return $this->render('trips/create.html.twig');
-    }
 }

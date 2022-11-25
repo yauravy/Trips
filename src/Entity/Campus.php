@@ -6,6 +6,7 @@ use App\Repository\CampusRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * @ORM\Entity(repositoryClass=CampusRepository::class)
@@ -24,22 +25,28 @@ class Campus
      */
     private $Nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="campus")
-     */
-    private $trips;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="campus")
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="campus")
+     */
+    private $tripss;
+    private $campus;
+
+    public function __toString(){
+        return(string) $this->campus; // Remplacer champ par une propriété "string" de l'entité
+    }
+
 
     public function __construct()
     {
 
-        $this->trips = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->tripss = new ArrayCollection();
 
     }
 
@@ -60,36 +67,6 @@ class Campus
         return $this;
     }
 
-
-    /**
-     * @return Collection<int, Trip>
-     */
-    public function getTrips(): Collection
-    {
-        return $this->trips;
-    }
-
-    public function addTrip(Trip $trip): self
-    {
-        if (!$this->trips->contains($trip)) {
-            $this->trips[] = $trip;
-            $trip->setCampus($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTrip(Trip $trip): self
-    {
-        if ($this->trips->removeElement($trip)) {
-            // set the owning side to null (unless already changed)
-            if ($trip->getCampus() === $this) {
-                $trip->setCampus(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, User>
@@ -115,6 +92,36 @@ class Campus
             // set the owning side to null (unless already changed)
             if ($user->getCampus() === $this) {
                 $user->setCampus(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Trip>
+     */
+    public function getTripss(): Collection
+    {
+        return $this->tripss;
+    }
+
+    public function addTripss(Trip $tripss): self
+    {
+        if (!$this->tripss->contains($tripss)) {
+            $this->tripss[] = $tripss;
+            $tripss->setCampus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTripss(Trip $tripss): self
+    {
+        if ($this->tripss->removeElement($tripss)) {
+            // set the owning side to null (unless already changed)
+            if ($tripss->getCampus() === $this) {
+                $tripss->setCampus(null);
             }
         }
 

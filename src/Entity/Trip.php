@@ -86,6 +86,16 @@ class Trip
      */
     private $lieu;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TripState::class, inversedBy="trips")
+     */
+    private $tripState;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="tripss")
+     */
+    private $campus;
+
 
 
     public function __construct()
@@ -232,6 +242,30 @@ class Trip
     public function setCreator(?User $creator): self
     {
         $this->creator = $creator;
+
+        return $this;
+    }
+
+    public function getTripState(): ?TripState
+    {
+        return $this->tripState;
+    }
+
+    public function setTripState(?TripState $tripState): self
+    {
+        $this->tripState = $tripState;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }

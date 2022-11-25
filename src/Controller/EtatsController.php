@@ -14,7 +14,7 @@ class EtatsController extends AbstractController
     public function index(): Response
     {
         return $this->render('etats/index.html.twig', [
-            'controller_name' => 'EtatsController',
+
         ]);
     }
 }
